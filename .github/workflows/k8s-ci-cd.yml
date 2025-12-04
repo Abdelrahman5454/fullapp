@@ -41,4 +41,7 @@ jobs:
         - name: Set up Kubeconfig
         run: |
         mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG_DATA }}" > $HOME/.kube/config
+        echo "${{ secrets.KUBECONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+        - name: Deploy MongoDB
+        run: kubectl apply -f k8s/mongo-deployment.yaml
+

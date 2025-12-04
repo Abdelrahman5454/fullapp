@@ -14,10 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Ensure Docker is running
-        run: |
-          sudo systemctl start docker
-          docker --version
+      - name: check docker
+        run:  docker --version
 
       - name: Terraform Init
         working-directory: terraform-docker2

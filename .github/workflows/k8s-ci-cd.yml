@@ -31,4 +31,3 @@ steps:
   run: |
     kubectl apply -f k8s/mongo-deployment.yaml
     kubectl apply -f k8s/node-app-deployment.yaml
-```

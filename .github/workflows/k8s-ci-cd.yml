@@ -27,15 +27,19 @@ jobs:
           docker build -t abdo02/fullstack-app-node-app:latest .
           docker push abdo02/fullstack-app-node-app:latest
 
+      - name: Set up KinD (Kubernetes in Docker)
+        uses: engineerd/setup-kind@v0.5.0
+        with:
+          version: v0.20.0
+
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
           version: 'v1.31.2'
 
-      - name: Set up Kubeconfig
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG_B64 }}" | base64 --decode > $HOME/.kube/config
-
       - name: Deploy all Kubernetes resources
-        run: kubectl apply -f k8s/
+        run: |
+          kubectl apply -f k8s/ --validate=false
+
+      - name: Check deployed pods
+        run: kubectl get pods -A

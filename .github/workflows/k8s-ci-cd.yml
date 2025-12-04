@@ -1,14 +1,3 @@
-name: CI/CD Kubernetes Deployment
-
-on:
-push:
-branches:
-- test
-
-jobs:
-build-and-deploy:
-runs-on: ubuntu-latest
-
 steps:
   - name: Checkout repository
     uses: actions/checkout@v3
@@ -35,10 +24,7 @@ steps:
   - name: Set up Kubeconfig
     run: |
       mkdir -p $HOME/.kube
-      echo "${{ secrets.KUBECONFIG_DATA }}" > $HOME/.kube/config
+      echo "${{ secrets.KUBECONFIG_DATA }}" | tee $HOME/.kube/config
 
-  - name: Deploy MongoDB
-    run: kubectl apply -f k8s/mongo-deployment.yaml
-
-  - name: Deploy Node App
-    run: kubectl apply -f k8s/node-app-deployment.yaml
+  - name: Deploy all Kubernetes resources
+    run: kubectl apply -f k8s/

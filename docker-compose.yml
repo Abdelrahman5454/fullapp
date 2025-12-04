@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: abdo02/fullstack-app:latest
     ports:
-      - "3000:3000"
+      - "3001:3000"
     restart: always
     environment:
       NODE_ENV: production

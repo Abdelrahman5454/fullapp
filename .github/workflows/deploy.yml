@@ -1,0 +1,29 @@
+name: Deploy Fullapp
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Ensure Docker is running
+        run: |
+          sudo systemctl start docker
+          docker --version
+
+      - name: Terraform Init
+        working-directory: terraform-docker2
+        run: terraform init
+
+      - name: Terraform Apply
+        working-directory: terraform-docker2
+        run: terraform apply -auto-approve
+

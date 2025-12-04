@@ -38,3 +38,6 @@ jobs:
       run: |
         kubectl apply -f k8s/mongo-deployment.yaml
         kubectl apply -f k8s/node-app-deployment.yaml
+        - name: Set up Kubeconfig
+        run: |
+        echo "${{ secrets.KUBECONFIG_DATA }}" > $HOME/.kube/config

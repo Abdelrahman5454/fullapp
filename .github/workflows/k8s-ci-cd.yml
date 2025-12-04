@@ -40,4 +40,5 @@ jobs:
         kubectl apply -f k8s/node-app-deployment.yaml
         - name: Set up Kubeconfig
         run: |
+        mkdir -p $HOME/.kube
         echo "${{ secrets.KUBECONFIG_DATA }}" > $HOME/.kube/config
